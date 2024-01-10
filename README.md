@@ -1,5 +1,5 @@
 # photoredox_whu
-(/content.png)
+![Logo](content.png)
 
 # Description
 
