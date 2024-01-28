@@ -125,7 +125,7 @@ class MLmodel(object):
         print('Test f1_score:', f1)
 
 if __name__ == '__main__':
-    data_file = r"..\data\scifinder_clean.csv"
+    data_file = r".\data\scifinder_clean.csv"
     ml = MLmodel(data_file, 'RF', 'rpr')
     ml.train_model()
     ml.test_model()
