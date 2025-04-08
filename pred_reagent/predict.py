@@ -17,7 +17,7 @@ def processSmiles(smiles):
     return fp_array
 
 
-def process_rrp(reactant=None, product=None, catalyst=None):
+def process_rpc(reactant=None, product=None, catalyst=None):
     reactants = processSmiles('.'.join(eval(reactant)))
     catalysts = processSmiles('.'.join(eval(catalyst)))
     products = processSmiles('.'.join(eval(product)))
@@ -32,11 +32,11 @@ def process_rp(reactant=None, product=None):
     return reactants, products
 
 # if use rpr model
-def predict_rpr(reactants="", products="", catalysts="", model_file="RF_model_rpr.pkl"):
+def predict_rpc(reactants="", products="", catalysts="", model_file="RF_model_rpr.pkl"):
     model = joblib.load(model_file)
-    r, p, rg = process_rrp(reactants, products, catalysts)
-    r, p, rg = np.array([r]), np.array([p]), np.array([rg])
-    X = np.concatenate([r, p, rg], axis=1)
+    r, p, c = process_rpc(reactants, products, catalysts)
+    r, p, c = np.array([r]), np.array([p]), np.array([c])
+    X = np.concatenate([r, p, c], axis=1)
 
     labels = np.load('reagents_labels.npy', allow_pickle=True).tolist()
     labels = [[l] for l in labels]
@@ -97,7 +97,7 @@ if __name__=='__main__':
 
         # use r+p+r
         catalysts = '[\''+row[cat_index]+'\']'
-        reagents, pp = predict_rpr(reactants, products, catalysts, model_file="RF_model_rpr.pkl")
+        reagents, pp = predict_rpr(reactants, products, catalysts, model_file="RF_model_rpc.pkl")
         writer.writerow([id, reactants, products, reagents, catalysts])
 
         print('-'*30)
