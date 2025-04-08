@@ -69,7 +69,7 @@ class MLmodel(object):
         # inputs
         if self.inputs == 'rp':  
             X = np.concatenate([reactants, products], axis=1)
-        if self.inputs == 'rpr':  
+        if self.inputs == 'rpc':  
             X = np.concatenate([reactants, products, catalysts], axis=1)
 
         self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(X,
@@ -126,6 +126,6 @@ class MLmodel(object):
 
 if __name__ == '__main__':
     data_file = r".\data\scifinder_clean.csv"
-    ml = MLmodel(data_file, 'RF', 'rpr')
+    ml = MLmodel(data_file, 'RF', 'rpc')
     ml.train_model()
     ml.test_model()
